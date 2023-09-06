@@ -1,6 +1,6 @@
 output "policy" {
-  description = "Object of attrributes for the AWS Organizations Policy"
-  value       = aws_organizations_policy.this
+  description = "Object of attributes for the AWS Organizations Policy"
+  value       = var.policy.create_policy ? aws_organizations_policy.this[0] : null
 }
 
 output "policy_attachments" {

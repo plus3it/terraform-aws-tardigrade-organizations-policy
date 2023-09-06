@@ -46,7 +46,7 @@ This module supports every AWS Organizations Policy type, including:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_policy"></a> [policy](#output\_policy) | Object of attrributes for the AWS Organizations Policy |
+| <a name="output_policy"></a> [policy](#output\_policy) | Object of attributes for the AWS Organizations Policy |
 | <a name="output_policy_attachments"></a> [policy\_attachments](#output\_policy\_attachments) | Map of objects containing AWS Organizations Policy attachments |
 
 <!-- END TFDOCS -->
