@@ -56,7 +56,7 @@ variable "policy" {
       length(jsonencode(jsondecode(var.policy.content))) <= 2500 :
       true
     )
-    error_message = "Backup Policy content exceeds max limit of 2,500 characters."
+    error_message = "AI Services Opt Out Policy content exceeds max limit of 2,500 characters."
   }
 
   validation {
