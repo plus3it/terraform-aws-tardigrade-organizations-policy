@@ -1,23 +1,52 @@
-# repo-template
-Generic repo template for Plus3IT repositories
+# terraform-aws-tardigrade-organizations-policy
 
-To use this template:
+Terraform module for managing an AWS Organizations Policy and its attachments.
 
-1. Select the green "Use this template" button, or [click here](https://github.com/plus3it/repo-template/generate).
-2. Select the repo Owner, give the repo a name, enter a description, select Public or Private, and click "Create repository from template".
-3. Clone the repository and create a new branch.
-4. Edit the following files to customize them for the new repository:
-    * `LICENSE`
-        * Near the end of the file, edit the date and change the repository name
-    * `CHANGELOG.template.md`
-        * Rename to `CHANGELOG.md`, replacing the repo-template changelog
-        * Edit templated items for the new repo
-    * `.bumpversion.cfg`
-        * Edit the version number for the new repo, ask team if not sure what to
-          start with
-    * `README.md`
-        * Replace contents for the new repo
-    * `.github/`
-        * Inspect dependabot and workflow files in case changes are needed for
-          the new repo
-5. Commit the changes and open a pull request
+This module supports every AWS Organizations Policy type, including:
+
+* Service Control Policies (SCPs)
+* Tag Policies
+* Backup Policies
+* AIServicesOptOut Policies
+
+    >WARNING: The specified policy type must be enabled in the AWS Organizations
+    >master account before it can be attached. Otherwise you will get an error
+    >of the form:
+    >
+    >```
+    >Error: creating Organizations Policy Attachment (target-id:policy-id): PolicyTypeNotEnabledException: This operation can be performed only for enabled policy types.
+    >```
+
+<!-- BEGIN TFDOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.35.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.35.0 |
+
+## Resources
+
+| Name | Type |
+|------|------|
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_policy"></a> [policy](#input\_policy) | Object of attributes and attachments for an AWS Organizations Policy | <pre>object({<br>    name          = optional(string)<br>    content       = optional(string)<br>    create_policy = optional(bool, true)<br>    description   = optional(string)<br>    id            = optional(string)<br>    skip_destroy  = optional(bool)<br>    type          = optional(string)<br>    tags          = optional(map(string))<br><br>    attachments = optional(list(object({<br>      name         = string<br>      target_id    = string<br>      skip_destroy = optional(bool)<br>    })), [])<br>  })</pre> | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_policy"></a> [policy](#output\_policy) | Object of attributes for the AWS Organizations Policy |
+| <a name="output_policy_attachments"></a> [policy\_attachments](#output\_policy\_attachments) | Map of objects containing AWS Organizations Policy attachments |
+
+<!-- END TFDOCS -->
