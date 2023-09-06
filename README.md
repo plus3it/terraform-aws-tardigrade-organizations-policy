@@ -1,6 +1,6 @@
-# terraform-aws-tardigrade-organizations-policies
+# terraform-aws-tardigrade-organizations-policy
 
-Terraform module for managing AWS Organizations Policies and their attachments.
+Terraform module for managing an AWS Organizations Policy and its attachments.
 
 This module supports every AWS Organizations Policy type, including:
 
