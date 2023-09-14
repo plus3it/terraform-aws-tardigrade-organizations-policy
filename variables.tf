@@ -47,7 +47,11 @@ variable "policy" {
       length(jsonencode(jsondecode(var.policy.content))) <= 5120 :
       true
     )
-    error_message = "Service Control Policy content exceeds max limit of 5,120 characters."
+    error_message = (
+      var.policy.create_policy ?
+      "Content length ${length(jsonencode(jsondecode(var.policy.content)))} of Service Control Policy \"${var.policy.name}\" exceeds max limit of 5120 characters." :
+      ""
+    )
   }
 
   validation {
@@ -56,7 +60,11 @@ variable "policy" {
       length(jsonencode(jsondecode(var.policy.content))) <= 2500 :
       true
     )
-    error_message = "AI Services Opt Out Policy content exceeds max limit of 2,500 characters."
+    error_message = (
+      var.policy.create_policy ?
+      "Content length ${length(jsonencode(jsondecode(var.policy.content)))} of AI Services Opt Out Policy \"${var.policy.name}\" exceeds max limit of 2500 characters." :
+      ""
+    )
   }
 
   validation {
@@ -65,7 +73,11 @@ variable "policy" {
       length(jsonencode(jsondecode(var.policy.content))) <= 10000 :
       true
     )
-    error_message = "Backup Policy content exceeds max limit of 10,000 characters."
+    error_message = (
+      var.policy.create_policy ?
+      "Content length ${length(jsonencode(jsondecode(var.policy.content)))} of Backup Policy \"${var.policy.name}\" exceeds max limit of 10000 characters." :
+      ""
+    )
   }
 
   validation {
@@ -74,6 +86,10 @@ variable "policy" {
       length(jsonencode(jsondecode(var.policy.content))) <= 10000 :
       true
     )
-    error_message = "Tag Policy content exceeds max limit of 10,000 characters."
+    error_message = (
+      var.policy.create_policy ?
+      "Content length ${length(jsonencode(jsondecode(var.policy.content)))} of Tag Policy \"${var.policy.name}\" exceeds max limit of 10000 characters." :
+      ""
+    )
   }
 }
