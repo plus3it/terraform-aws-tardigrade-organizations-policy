@@ -2,7 +2,7 @@ resource "aws_organizations_policy" "this" {
   count = var.policy.create_policy ? 1 : 0
 
   name    = var.policy.name
-  content = var.policy.content
+  content = jsonencode(jsondecode(var.policy.content))
 
   description  = var.policy.description
   skip_destroy = var.policy.skip_destroy
