@@ -40,7 +40,7 @@ This module supports every AWS Organizations Policy type, including:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_policy"></a> [policy](#input\_policy) | Object of attributes and attachments for an AWS Organizations Policy | <pre>object({<br>    name          = optional(string)<br>    content       = optional(string)<br>    create_policy = optional(bool, true)<br>    description   = optional(string)<br>    id            = optional(string)<br>    skip_destroy  = optional(bool)<br>    type          = optional(string)<br>    tags          = optional(map(string))<br><br>    attachments = optional(list(object({<br>      name         = string<br>      target_id    = string<br>      skip_destroy = optional(bool)<br>    })), [])<br>  })</pre> | n/a | yes |
+| <a name="input_policy"></a> [policy](#input\_policy) | Object of attributes and attachments for an AWS Organizations Policy | <pre>object({<br/>    name          = optional(string)<br/>    content       = optional(string)<br/>    create_policy = optional(bool, true)<br/>    description   = optional(string)<br/>    id            = optional(string)<br/>    skip_destroy  = optional(bool)<br/>    type          = optional(string)<br/>    tags          = optional(map(string))<br/><br/>    attachments = optional(list(object({<br/>      name         = string<br/>      target_id    = string<br/>      skip_destroy = optional(bool)<br/>    })), [])<br/>  })</pre> | n/a | yes |
 
 ## Outputs
 
