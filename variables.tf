@@ -20,10 +20,10 @@ variable "policy" {
   validation {
     condition = (
       var.policy.type != null ?
-      contains(["AISERVICES_OPT_OUT_POLICY", "BACKUP_POLICY", "SERVICE_CONTROL_POLICY", "TAG_POLICY"], var.policy.type) :
+      contains(["AISERVICES_OPT_OUT_POLICY", "BACKUP_POLICY", "RESOURCE_CONTROL_POLICY", "SERVICE_CONTROL_POLICY", "TAG_POLICY"], var.policy.type) :
       true
     )
-    error_message = "Policy `type` must be one of: AISERVICES_OPT_OUT_POLICY, BACKUP_POLICY, SERVICE_CONTROL_POLICY, TAG_POLICY"
+    error_message = "Policy `type` must be one of: AISERVICES_OPT_OUT_POLICY, BACKUP_POLICY, RESOURCE_CONTROL_POLICY, SERVICE_CONTROL_POLICY, TAG_POLICY"
   }
 
   validation {
@@ -41,6 +41,7 @@ variable "policy" {
     error_message = "Policy `id` is required when `create_policy` is false."
   }
 
+  # For policy size validation limits, see: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_limits.html#min-max-values
   validation {
     condition = (
       var.policy.create_policy && (var.policy.type == null || var.policy.type == "SERVICE_CONTROL_POLICY") ?
@@ -50,6 +51,19 @@ variable "policy" {
     error_message = (
       var.policy.create_policy ?
       "Content length ${length(jsonencode(jsondecode(var.policy.content)))} of Service Control Policy \"${var.policy.name}\" exceeds max limit of 5120 characters." :
+      ""
+    )
+  }
+
+  validation {
+    condition = (
+      var.policy.create_policy && (var.policy.type == null || var.policy.type == "RESOURCE_CONTROL_POLICY") ?
+      length(jsonencode(jsondecode(var.policy.content))) <= 5120 :
+      true
+    )
+    error_message = (
+      var.policy.create_policy ?
+      "Content length ${length(jsonencode(jsondecode(var.policy.content)))} of Resource Control Policy \"${var.policy.name}\" exceeds max limit of 5120 characters." :
       ""
     )
   }
